@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sobre · SEI Bahia Capacitação de Servidores Municipais</title>
+  <meta name="description" content="Conheça o projeto de capacitação de servidores municipais no uso do SEI Bahia. Modernização e gestão documental 100% eletrônica.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ee6a1f'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    .sobre-main {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      margin-top: clamp(24px, 4vw, 36px);
+    }
+
+    .sobre-hero {
+      background: var(--field);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(24px, 4vw, 40px);
+    }
+
+    .badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font: 700 11px 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: var(--card);
+      border: 1px solid rgba(238, 106, 31, 0.2);
+      border-radius: 999px;
+      padding: 4px 12px;
+      margin-bottom: 12px;
+    }
+
+    .sobre-hero h1 {
+      margin: 0 0 14px;
+      font: 700 clamp(28px, 3.8vw, 40px)/1.15 'Poppins', sans-serif;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .sobre-hero p {
+      margin: 0 0 20px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      max-width: 800px;
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .pillar-card {
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: 20px;
+      padding: 24px 20px;
+      transition: all 0.2s ease;
+    }
+
+    .pillar-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+    }
+
+    .pillar-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--sel);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .pillar-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .pillar-card h3 {
+      margin: 0 0 8px;
+      font: 600 16px 'Poppins', sans-serif;
+      color: var(--ink);
+    }
+
+    .pillar-card p {
+      margin: 0;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .cta-box h3 {
+      margin: 0 0 6px;
+      font: 700 20px 'Poppins', sans-serif;
+      color: #ffffff;
+    }
+
+    .cta-box p {
+      margin: 0;
+      font-size: 14px;
+      opacity: 0.95;
+      max-width: 600px;
+    }
+
+    .cta-box a {
+      background: #ffffff;
+      color: var(--accent);
+      font: 600 13px 'Poppins', sans-serif;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 999px;
+      transition: transform 0.2s;
+      white-space: nowrap;
+    }
+
+    .cta-box a:hover {
+      transform: scale(1.04);
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Cabeçalho -->
+  <header>
+    <a href="index.html" class="brand" aria-label="Ir para a página inicial">
+      <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+        <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+        <polyline points="10 9 9 9 8 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"></polyline>
+      </svg>
+      <span>SEI BAHIA · CAPACITAÇÃO</span>
+    </a>
+
+    <nav aria-label="Navegação Principal">
+      <a href="index.html">INÍCIO</a>
+      <a href="sobre.html" aria-current="page">SOBRE</a>
+      <a href="apostila.html">APOSTILA</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+
+    <div class="header-actions">
+      <span class="hello">OLÁ, <b>SERVIDOR(A)</b></span>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+        <svg id="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Conteúdo Sobre -->
+  <main class="sobre-main">
+    <section class="sobre-hero">
+      <div class="badge-tag">Modernização da Gestão Pública</div>
+      <h1>Sobre o Projeto de Capacitação</h1>
+      <p>
+        O projeto de capacitação no <strong>SEI Bahia</strong> tem como meta equipar os servidores e servidoras municipais com o conhecimento prático necessário para transformar a administração pública. A transição para processos 100% digitais elimina o uso de papel físico, diminui custos operacionais e assegura total rastreabilidade aos atos administrativos.
+      </p>
+      <p>
+        Este portal reúne as orientações do <em>Guia Prático do SEI</em>, permitindo que cada profissional encontre respostas instantâneas no FAQ e aprofunde seus conhecimentos através da apostila oficial.
+      </p>
+    </section>
+
+    <!-- Pilares -->
+    <section class="pillars-grid">
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        </div>
+        <h3>Celeridade Processual</h3>
+        <p>Elimine o transporte físico de malotes e processos. No SEI, o envio entre secretarias e setores ocorre em poucos cliques.</p>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <h3>Segurança e Integridade</h3>
+        <p>Documentos assinados eletronicamente possuem imutabilidade, carimbo de data e hora e valor probante garantido por lei.</p>
+      </div>
+
+      <div class="pillar-card">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+        </div>
+        <h3>Transparência Ativa</h3>
+        <p>Acesso rápido ao histórico de andamento, facilitando o cumprimento dos prazos e as exigências dos órgãos de controle.</p>
+      </div>
+    </section>
+
+    <!-- Caixa CTA -->
+    <section class="cta-box">
+      <div>
+        <h3>Precisa tirar uma dúvida agora?</h3>
+        <p>Consulte nossa base interativa com 21 perguntas e respostas detalhadas sobre o SEI.</p>
+      </div>
+      <a href="faq.html">Ir para o FAQ</a>
+    </section>
+  </main>
+
+  <!-- Folhagens Decorativas nos Cantos Inferiores do Cartão -->
+  <div class="foot-foliage" aria-hidden="true">
+    <svg class="foliage-left" viewBox="0 0 240 100">
+      <path d="M0 100 L0 52 C16 40 28 60 42 44 C52 18 72 4 84 32 C90 48 104 34 116 44 C132 58 150 36 168 52 C182 66 202 56 218 72 C228 82 234 94 240 100 Z"></path>
+      <path d="M12 100 C30 50 65 55 90 90 C60 88 40 92 12 100 Z" opacity="0.6"></path>
+    </svg>
+    <svg class="foliage-right" viewBox="0 0 240 100">
+      <path d="M0 100 L0 52 C16 40 28 60 42 44 C52 18 72 4 84 32 C90 48 104 34 116 44 C132 58 150 36 168 52 C182 66 202 56 218 72 C228 82 234 94 240 100 Z"></path>
+      <path d="M12 100 C30 50 65 55 90 90 C60 88 40 92 12 100 Z" opacity="0.6"></path>
+    </svg>
+  </div>
+</div>
+
+<script src="js/theme.js"></script>
+</body>
+</html>

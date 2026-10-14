@@ -1,0 +1,318 @@
+/* ==========================================================================
+   SEI BAHIA · CAPACITAÇÃO - ESTILOS GLOBAIS (DESIGN SYSTEM)
+   ========================================================================== */
+
+:root {
+  --bg1: #f9ae45;
+  --bg2: #ee7a2a;
+  --card: #ffffff;
+  --ink: #3b4673;
+  --ink-soft: #283053;
+  --text: #5d6585;
+  --text-muted: #8890ae;
+  --accent: #ee6a1f;
+  --accent-hover: #d85912;
+  --accent-light: #fff3e8;
+  --line: #e6e8ef;
+  --field: #f3f4f8;
+  --field-focus: #ffffff;
+  --stone1: #f1ebe1;
+  --stone2: #d9d0c0;
+  --stone-shadow: rgba(120, 100, 70, 0.18);
+  --leaf: #f1ece3;
+  --leaf-deep: #e4ded2;
+  --sel: #fff3e8;
+  --hl-bg: #ffe4bc;
+  --hl-text: #7a3500;
+  --badge-bg: #f8fafc;
+  --badge-border: #e2e8f0;
+  --card-hover: #fcfcfd;
+  --focus-ring: #ee6a1f;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg1: #c2761f;
+    --bg2: #9c4513;
+    --card: #1f2339;
+    --ink: #e9ebff;
+    --ink-soft: #f4f5ff;
+    --text: #b3b8d6;
+    --text-muted: #7d84a7;
+    --accent: #ff8a45;
+    --accent-hover: #ffa166;
+    --accent-light: #2c2a3e;
+    --line: #343a5c;
+    --field: #2a2f4a;
+    --field-focus: #313757;
+    --stone1: #4a4660;
+    --stone2: #34324a;
+    --stone-shadow: rgba(10, 12, 25, 0.45);
+    --leaf: #2a2d46;
+    --leaf-deep: #22253c;
+    --sel: #2c2a3e;
+    --hl-bg: #743e14;
+    --hl-text: #ffd3b3;
+    --badge-bg: #272c47;
+    --badge-border: #3b4267;
+    --card-hover: #262b45;
+    --focus-ring: #ff8a45;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg1: #c2761f;
+  --bg2: #9c4513;
+  --card: #1f2339;
+  --ink: #e9ebff;
+  --ink-soft: #f4f5ff;
+  --text: #b3b8d6;
+  --text-muted: #7d84a7;
+  --accent: #ff8a45;
+  --accent-hover: #ffa166;
+  --accent-light: #2c2a3e;
+  --line: #343a5c;
+  --field: #2a2f4a;
+  --field-focus: #313757;
+  --stone1: #4a4660;
+  --stone2: #34324a;
+  --stone-shadow: rgba(10, 12, 25, 0.45);
+  --leaf: #2a2d46;
+  --leaf-deep: #22253c;
+  --sel: #2c2a3e;
+  --hl-bg: #743e14;
+  --hl-text: #ffd3b3;
+  --badge-bg: #272c47;
+  --badge-border: #3b4267;
+  --card-hover: #262b45;
+  --focus-ring: #ff8a45;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  padding: clamp(12px, 2.5vw, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Card Central */
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  background: var(--card);
+  border-radius: 30px;
+  padding: clamp(24px, 3.6vw, 44px) clamp(22px, 5vw, 68px) 100px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(90, 30, 0, 0.22), 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Cabeçalho */
+header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 13px 'Poppins', sans-serif;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  user-select: none;
+  transition: opacity 0.2s;
+}
+
+.brand:hover {
+  opacity: 0.85;
+}
+
+.brand-icon {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.5vw, 32px);
+  font: 600 11px 'Poppins', sans-serif;
+  text-transform: uppercase;
+}
+
+nav a {
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  padding: 6px 2px;
+  border-bottom: 2.5px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+nav a:hover {
+  color: var(--accent);
+}
+
+nav a[aria-current="page"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.hello {
+  font: 500 11px 'Poppins', sans-serif;
+  color: var(--ink);
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hello b {
+  font-weight: 700;
+}
+
+.theme-toggle {
+  background: var(--field);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  transform: scale(1.06);
+}
+
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Folhagens dos Cantos Inferiores do Cartão */
+.foot-foliage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 110px;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.foot-foliage svg {
+  position: absolute;
+  bottom: -6px;
+  width: clamp(200px, 24vw, 320px);
+  fill: var(--leaf);
+  opacity: 0.95;
+  transition: fill 0.3s;
+}
+
+.foot-foliage .foliage-left {
+  left: -18px;
+}
+
+.foot-foliage .foliage-right {
+  right: -18px;
+  transform: scaleX(-1);
+}
+
+/* Foco Acessível */
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* Responsividade Global */
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .card {
+    border-radius: 22px;
+    padding: 20px 16px 80px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  nav {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    gap: 16px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* Redução de Movimento */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
