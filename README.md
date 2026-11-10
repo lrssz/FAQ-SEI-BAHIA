@@ -53,28 +53,3 @@ siteSEI/
 
 ---
 
-## ⚙️ Como Personalizar
-
-### Adicionar ou Editar Perguntas
-Abra o arquivo [`js/faq-data.js`](file:///c:/Users/santo/OneDrive/Desktop/siteSEI/js/faq-data.js) e altere ou inclua novos itens no array `FAQ`:
-```javascript
-[
-  "Processos",                                      // Tema (chip)
-  "Como solicito prioridade na tramitação?",        // Pergunta
-  "Basta utilizar o campo de especificação...",     // Resposta
-  "Cap. 2.5"                                        // Referência da apostila
-]
-```
-Os contadores dos chips e o motor de busca se atualizam automaticamente.
-
-### Ajustar Cores e Temas
-As cores e tokens estão centralizados em [`css/global.css`](file:///c:/Users/santo/OneDrive/Desktop/siteSEI/css/global.css):
-- `--bg1` / `--bg2`: Degradê diagonal laranja institucional (`#f9ae45` → `#ee7a2a`).
-- `--card`: Fundo do cartão central (`#ffffff`).
-- `--accent`: Laranja de destaque (`#ee6a1f`).
-- `--ink`: Azul-marinho dos títulos (`#3b4673`).
-
----
-
-## 🚀 Como Executar
-Basta dar um duplo clique em [`index.html`](file:///c:/Users/santo/OneDrive/Desktop/siteSEI/index.html) para abrir no navegador padrão.
