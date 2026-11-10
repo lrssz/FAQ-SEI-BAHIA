@@ -1,9 +1,3 @@
-/**
- * SEI Bahia · Capacitação - Banco de Dados de Perguntas e Respostas do FAQ
- * Extraído e estruturado a partir do "Guia Prático do SEI"
- * Formato: [Tema, Pergunta, Resposta, Referência Apostila]
- */
-
 const TEMAS = [
   "Todos",
   "Acesso",

@@ -1,8 +1,3 @@
-/**
- * SEI Bahia · Capacitação - Lógica da Página de FAQ
- * Gerencia busca em tempo real, filtros por chips, acordeão acessível e destaque de palavras-chave.
- */
-
 document.addEventListener('DOMContentLoaded', () => {
   // Elementos do DOM
   const lista = document.getElementById('lista');

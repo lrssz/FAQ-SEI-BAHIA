@@ -1,8 +1,3 @@
-/**
- * SEI Bahia · Capacitação - Gerenciador de Tema Claro / Escuro
- * Persiste a escolha do usuário no localStorage e sincroniza com preferências do sistema.
- */
-
 (function () {
   const THEME_KEY = 'seibahia-theme';
 
