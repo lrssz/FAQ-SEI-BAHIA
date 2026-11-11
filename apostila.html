@@ -63,7 +63,14 @@
       max-width: 660px;
     }
 
-    .btn-download {
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-primary {
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -71,19 +78,49 @@
       color: #ffffff;
       font: 600 13px 'Poppins', sans-serif;
       text-decoration: none;
-      padding: 12px 24px;
       border-radius: 999px;
+      padding: 11px 22px;
       box-shadow: 0 6px 18px rgba(238, 106, 31, 0.28);
-      transition: all 0.2s;
+      transition: all 0.2s ease;
       white-space: nowrap;
     }
 
-    .btn-download:hover {
+    .btn-primary:hover {
       background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(238, 106, 31, 0.36);
+    }
+
+    .btn-primary svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      fill: none;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      color: var(--ink);
+      border: 1.5px solid var(--line);
+      font: 600 13px 'Poppins', sans-serif;
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
       transform: translateY(-2px);
     }
 
-    .btn-download svg {
+    .btn-secondary svg {
       width: 16px;
       height: 16px;
       stroke: currentColor;
@@ -146,6 +183,41 @@
       line-height: 1.5;
     }
 
+    .chapter-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+
+    .btn-cap-pdf {
+      font: 600 12.5px 'Poppins', sans-serif;
+      color: #ffffff;
+      background: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      padding: 7px 14px;
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+
+    .btn-cap-pdf:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-cap-pdf svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+
     .chapter-link {
       font: 600 12.5px 'Poppins', sans-serif;
       color: var(--accent);
@@ -165,13 +237,14 @@
       color: #ffffff;
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 760px) {
       .chapter-card {
         flex-direction: column;
         align-items: flex-start;
       }
-      .chapter-link {
-        align-self: flex-end;
+      .chapter-actions {
+        width: 100%;
+        justify-content: flex-end;
       }
     }
   </style>
@@ -194,7 +267,6 @@
 
     <nav aria-label="Navegação Principal">
       <a href="index.html">INÍCIO</a>
-      <a href="sobre.html">SOBRE</a>
       <a href="apostila.html" aria-current="page">APOSTILA</a>
       <a href="faq.html">FAQ</a>
     </nav>
@@ -221,20 +293,30 @@
   <main class="apostila-main">
     <section class="apostila-hero">
       <div>
-        <div class="badge-tag">Material Didático Oficial</div>
+        <div class="badge-tag">Material Didático Oficial · PDF Disponível</div>
         <h1>Guia Prático do SEI Bahia</h1>
         <p>
-          Consulte os capítulos de referência citados nas respostas do FAQ. Cada capítulo traz o passo a passo com telas ilustradas, orientações regimentais e modelos recomendados.
+          Material de apoio oficial estruturado em 6 capítulos essenciais para a capacitação de servidores municipais no SEI: Introdução, Operações com processos, Operações com documentos, Utilização de blocos, Recuperação de informações e Usuários externos. Você pode visualizar o documento completo no navegador ou baixar o PDF para consulta.
         </p>
       </div>
-      <a href="faq.html" class="btn-download">
-        <svg viewBox="0 0 24 24">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        Ver Dúvidas no FAQ
-      </a>
+      <div class="hero-actions">
+        <a href="guia-pratico-sei.pdf" target="_blank" rel="noopener" class="btn-primary" aria-label="Abrir Apostila Guia Prático do SEI em PDF no navegador em nova aba">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          Abrir no navegador
+        </a>
+        <a href="guia-pratico-sei.pdf" download="Guia-Pratico-SEI-Bahia.pdf" class="btn-secondary" aria-label="Baixar Apostila Guia Prático do SEI em PDF">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Baixar PDF
+        </a>
+      </div>
     </section>
 
     <!-- Lista de Capítulos -->
@@ -244,11 +326,20 @@
         <div class="chapter-info">
           <span class="chapter-badge">Capítulo 1</span>
           <div class="chapter-texts">
-            <h3>Acesso, Credenciais e Navegação no SEI</h3>
-            <p>Cap. 1.1 · Como entrar, recuperação de senha funcional, troca de unidade e visão geral da mesa virtual.</p>
+            <h3>Introdução</h3>
+            <p>Acesso ao sistema via navegador ou gov.br, elementos da tela inicial (Controle de Processos e NUP), recebimento e atribuição de processos a servidores e inclusão de anotações internas.</p>
           </div>
         </div>
-        <a href="faq.html" class="chapter-link">Dúvidas de Acesso &rarr;</a>
+        <div class="chapter-actions">
+          <a href="guia-pratico-sei.pdf" target="_blank" rel="noopener" class="btn-cap-pdf" aria-label="Abrir Capítulo 1 no PDF">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Abrir no PDF
+          </a>
+          <a href="faq.html" class="chapter-link">Dúvidas de Acesso &rarr;</a>
+        </div>
       </article>
 
       <!-- Cap 2 -->
@@ -256,11 +347,20 @@
         <div class="chapter-info">
           <span class="chapter-badge">Capítulo 2</span>
           <div class="chapter-texts">
-            <h3>Iniciação e Tramitação de Processos</h3>
-            <p>Cap. 2.1 a 2.4 · Criação de processo (NUP), níveis de sigilo, envio para órgãos externos, anexação vs. relacionamento e retorno programado.</p>
+            <h3>Operações com processos</h3>
+            <p>Criação com NUP, níveis de sigilo (Público, Restrito, Sigiloso), relacionamento e anexação, sobrestamento, duplicação e envio de processos, conclusão, retorno programado e pontos de controle.</p>
           </div>
         </div>
-        <a href="faq.html" class="chapter-link">Dúvidas de Processos &rarr;</a>
+        <div class="chapter-actions">
+          <a href="guia-pratico-sei.pdf" target="_blank" rel="noopener" class="btn-cap-pdf" aria-label="Abrir Capítulo 2 no PDF">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Abrir no PDF
+          </a>
+          <a href="faq.html" class="chapter-link">Dúvidas de Processos &rarr;</a>
+        </div>
       </article>
 
       <!-- Cap 3 -->
@@ -268,11 +368,20 @@
         <div class="chapter-info">
           <span class="chapter-badge">Capítulo 3</span>
           <div class="chapter-texts">
-            <h3>Produção, Edição e Assinatura de Documentos</h3>
-            <p>Cap. 3.1 a 3.6 · Elaboração de minutas no editor, autenticação eletrônica (senha/e-CPF), exclusão vs. cancelamento e inclusão de documento externo.</p>
+            <h3>Operações com documentos</h3>
+            <p>Criação e edição de minutas, barra de ferramentas do editor, assinatura eletrônica com validade jurídica, padrões de texto e modelos, inclusão de documentos externos (com OCR), exclusão vs. cancelamento e manifestação de ciência.</p>
           </div>
         </div>
-        <a href="faq.html" class="chapter-link">Dúvidas de Documentos &rarr;</a>
+        <div class="chapter-actions">
+          <a href="guia-pratico-sei.pdf" target="_blank" rel="noopener" class="btn-cap-pdf" aria-label="Abrir Capítulo 3 no PDF">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Abrir no PDF
+          </a>
+          <a href="faq.html" class="chapter-link">Dúvidas de Documentos &rarr;</a>
+        </div>
       </article>
 
       <!-- Cap 4 -->
@@ -280,11 +389,20 @@
         <div class="chapter-info">
           <span class="chapter-badge">Capítulo 4</span>
           <div class="chapter-texts">
-            <h3>Blocos de Trabalho e Gestão Compartilhada</h3>
-            <p>Cap. 4.1 a 4.4 · Bloco de Assinatura para órgãos parceiros, Bloco de Reunião para consulta e Bloco Interno para organização da unidade.</p>
+            <h3>Utilização de blocos</h3>
+            <p>Bloco de Assinatura para colheita de assinaturas entre unidades sem tramitação formal, consultas e filtros de blocos, visualização de minutas em Bloco de Reunião e organização de demandas em Blocos Internos.</p>
           </div>
         </div>
-        <a href="faq.html" class="chapter-link">Dúvidas de Blocos &rarr;</a>
+        <div class="chapter-actions">
+          <a href="guia-pratico-sei.pdf" target="_blank" rel="noopener" class="btn-cap-pdf" aria-label="Abrir Capítulo 4 no PDF">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Abrir no PDF
+          </a>
+          <a href="faq.html" class="chapter-link">Dúvidas de Blocos &rarr;</a>
+        </div>
       </article>
 
       <!-- Cap 5 -->
@@ -292,11 +410,20 @@
         <div class="chapter-info">
           <span class="chapter-badge">Capítulo 5</span>
           <div class="chapter-texts">
-            <h3>Consultas, Histórico e Auditoria Processual</h3>
-            <p>Cap. 5.1 a 5.4 · Histórico de andamento, acompanhamento especial com alertas, reabertura de processos concluídos e exportação em PDF integral.</p>
+            <h3>Recuperação de informações</h3>
+            <p>Histórico detalhado do processo (andamento), acompanhamento especial com alertas de novas movimentações, reabertura de processos concluídos, exportação de processo em PDF integral, base de conhecimento e estatísticas.</p>
           </div>
         </div>
-        <a href="faq.html" class="chapter-link">Dúvidas de Busca &rarr;</a>
+        <div class="chapter-actions">
+          <a href="guia-pratico-sei.pdf" target="_blank" rel="noopener" class="btn-cap-pdf" aria-label="Abrir Capítulo 5 no PDF">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Abrir no PDF
+          </a>
+          <a href="faq.html" class="chapter-link">Dúvidas de Busca &rarr;</a>
+        </div>
       </article>
 
       <!-- Cap 6 -->
@@ -304,11 +431,20 @@
         <div class="chapter-info">
           <span class="chapter-badge">Capítulo 6</span>
           <div class="chapter-texts">
-            <h3>Gestão de Acessos Externos e Cidadãos</h3>
-            <p>Cap. 6.1 e 6.2 · Cadastro e validação de usuários externos e disponibilização controlada de processos e termos de assinatura para terceiros.</p>
+            <h3>Usuários externos</h3>
+            <p>Conceito e cadastro de usuário externo no portal do órgão, análise documental e liberação pela unidade, visualização e assinatura externa de termos/contratos, peticionamento eletrônico e notificações por e-mail com recibo eletrônico.</p>
           </div>
         </div>
-        <a href="faq.html" class="chapter-link">Dúvidas Externas &rarr;</a>
+        <div class="chapter-actions">
+          <a href="guia-pratico-sei.pdf" target="_blank" rel="noopener" class="btn-cap-pdf" aria-label="Abrir Capítulo 6 no PDF">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            Abrir no PDF
+          </a>
+          <a href="faq.html" class="chapter-link">Dúvidas Externas &rarr;</a>
+        </div>
       </article>
     </section>
   </main>

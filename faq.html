@@ -32,7 +32,6 @@
 
     <nav aria-label="Navegação Principal">
       <a href="index.html">INÍCIO</a>
-      <a href="sobre.html">SOBRE</a>
       <a href="apostila.html">APOSTILA</a>
       <a href="faq.html" aria-current="page">FAQ</a>
     </nav>
@@ -136,114 +135,106 @@
       <div class="big-faq">FAQ</div>
 
       <!-- Mulher de pé com a mão no queixo (Ilustração SVG Vetorial Refinada) -->
-      <svg class="hero-character" viewBox="0 0 220 400" preserveAspectRatio="xMidYMax meet">
-        <defs>
-          <linearGradient id="blazerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#f7cb45" />
-            <stop offset="100%" stop-color="#e09e1e" />
-          </linearGradient>
-          <linearGradient id="pantsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#343d6c" />
-            <stop offset="100%" stop-color="#242b50" />
-          </linearGradient>
-          <linearGradient id="hairGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#2c2838" />
-            <stop offset="100%" stop-color="#191624" />
-          </linearGradient>
-        </defs>
+<svg class="hero-character" viewBox="-10 0 220 400" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="torsoClip"><path d="M74 120Q74 106 88 103H112Q126 106 128 120L136 204H66Z"/></clipPath>
+  </defs>
 
-        <!-- Sombra no Chão -->
-        <ellipse cx="110" cy="388" rx="72" ry="10" fill="#1b1d2e" opacity="0.18" />
+  <!-- sombra no chão -->
+  <ellipse cx="102" cy="391" rx="62" ry="8" fill="#0b3556" opacity=".2"/>
 
-        <!-- Cabelo por trás -->
-        <path d="M72 88 C60 120 62 165 74 185 C84 170 82 135 84 105 Z" fill="url(#hairGrad)" />
+  <!-- pernas -->
+  <path d="M70 200H132L134 376H108L101 238L94 376H68Z" fill="#1f2f66"/>
+  <path d="M112 200H132L134 376H108L101 238Z" fill="#0d1640" opacity=".18"/>
+  <path d="M101 238L108 376" stroke="#18255a" stroke-width="1.5" fill="none"/>
+  <!-- sapatos -->
+  <path d="M66 376H94V386Q94 388 91 388H66Q62 388 62 384Z" fill="#14204f"/>
+  <path d="M108 376H136V384Q136 388 132 388H108Z" fill="#14204f"/>
+  <rect x="62" y="386" width="32" height="3" rx="1.5" fill="#9db83a"/>
+  <rect x="108" y="386" width="30" height="3" rx="1.5" fill="#9db83a"/>
 
-        <!-- Calça e Pernas -->
-        <g id="legs">
-          <path d="M104 220 L115 358 L138 358 L132 220 Z" fill="url(#pantsGrad)" />
-          <path d="M78 220 L72 358 L96 358 L99 220 Z" fill="url(#pantsGrad)" />
-          <line x1="84" y1="235" x2="84" y2="340" stroke="#1c213d" stroke-width="1.8" stroke-linecap="round" opacity="0.5" />
-          <line x1="124" y1="235" x2="126" y2="340" stroke="#1c213d" stroke-width="1.8" stroke-linecap="round" opacity="0.5" />
-        </g>
+  <!-- mecha de cabelo atrás -->
+  <path d="M80 56Q68 92 80 118Q88 100 86 70Z" fill="#1d2347"/>
 
-        <!-- Sapatos Elegantes -->
-        <g id="shoes">
-          <path d="M64 358 C64 358 64 374 74 374 L100 374 C104 374 102 358 102 358 Z" fill="#181b2f" />
-          <path d="M64 372 L102 372" stroke="#ee6a1f" stroke-width="2.5" />
-          <path d="M110 358 C110 358 110 374 122 374 L146 374 C150 374 148 358 148 358 Z" fill="#181b2f" />
-          <path d="M110 372 L148 372" stroke="#ee6a1f" stroke-width="2.5" />
-        </g>
+  <!-- tronco: blazer -->
+  <path d="M74 120Q74 106 88 103H112Q126 106 128 120L136 204H66Z" fill="#f5c23a"/>
+  <path d="M116 104Q126 106 128 120L136 204H116Z" fill="#c8900f" opacity=".16"/>
+  <!-- camisa -->
+  <path d="M90 103L100 150L110 103Z" fill="#fff"/>
+  <path d="M90 103L100 150M110 103L100 150" stroke="#e0a526" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- pescoço -->
+  <path d="M94 84H106V104Q100 110 94 104Z" fill="#e9a97f"/>
+  <path d="M94 84H106V91Q100 95 94 91Z" fill="#c98563" opacity=".45"/>
 
-        <!-- Tronco / Camisa Branca / Blazer Mostarda -->
-        <g id="torso">
-          <path d="M88 120 L126 120 L130 220 L84 220 Z" fill="#fdfefe" />
-          <path d="M98 120 L107 150 L116 120 Z" fill="#e8a87c" />
+  <!-- crachá -->
+  <path d="M94 104L100 128M106 104L100 128" stroke="#d6dccb" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <rect x="92" y="128" width="16" height="22" rx="2.5" fill="#fff" stroke="#d6dccb"/>
+  <rect x="95" y="132" width="10" height="3" rx="1.5" fill="#9db83a"/>
+  <rect x="95" y="138" width="10" height="1.8" rx=".9" fill="#c9d3dc"/>
 
-          <!-- Crachá SEI no cordão -->
-          <path d="M103 136 L99 176 L111 176 Z" stroke="#ee6a1f" stroke-width="1.2" fill="none" opacity="0.8" />
-          <rect x="98" y="176" width="14" height="20" rx="2" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
-          <rect x="100" y="179" width="10" height="4" rx="1" fill="#ee6a1f" />
-          <line x1="100" y1="187" x2="108" y2="187" stroke="#64748b" stroke-width="1" />
-          <line x1="100" y1="190" x2="106" y2="190" stroke="#64748b" stroke-width="1" />
+  <!-- sombras dos braços (única definição deles) -->
+  <g clip-path="url(#torsoClip)" fill="none" stroke="#8a5d05" stroke-opacity=".24" stroke-width="13" stroke-linecap="round" stroke-linejoin="round" transform="translate(1.5 4)">
+    <path d="M76 120Q71 142 75 164L124 168"/>
+    <path d="M127 118L141 156"/>
+  </g>
 
-          <!-- Blazer Mostarda -->
-          <path d="M74 128 C68 155 70 200 75 224 L101 224 L96 142 Z" fill="url(#blazerGrad)" />
-          <path d="M136 128 C144 158 140 200 135 224 L110 224 L116 142 Z" fill="url(#blazerGrad)" />
-          <path d="M96 130 L74 186 L98 186 Z" fill="#e09e1e" />
-          <path d="M116 130 L138 186 L114 186 Z" fill="#e09e1e" />
-          <path d="M78 220 L132 220 L130 227 L80 227 Z" fill="#1e243d" />
-          <rect x="101" y="218" width="10" height="9" rx="1" fill="#f7cb45" />
-        </g>
+  <!-- braço esquerdo cruzado (mesma cor do blazer) -->
+  <path d="M76 120Q71 142 75 164L124 168" stroke="#f5c23a" stroke-width="13" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- punho e mão -->
+  <path d="M121 168H128" stroke="#fff" stroke-width="11" fill="none"/>
+  <ellipse cx="136" cy="168" rx="8" ry="7" fill="#e9a97f"/>
+  <path d="M134 163.5Q137.5 165 138.5 168" stroke="#c98563" stroke-width="1" fill="none" stroke-linecap="round" opacity=".7"/>
 
-        <!-- Braço Esquerdo (apoiado na cintura) -->
-        <g id="leftArm">
-          <path d="M75 130 L56 182 L70 190 L84 140 Z" fill="url(#blazerGrad)" />
-          <path d="M56 182 L84 198 L88 186 L68 174 Z" fill="url(#blazerGrad)" />
-          <ellipse cx="88" cy="192" rx="7" ry="6" fill="#e8a87c" />
-        </g>
+  <!-- braço direito até o queixo (mesma cor do blazer) -->
+  <path d="M127 118L141 156L121 100" stroke="#f5c23a" stroke-width="13" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- punho -->
+  <path d="M122.5 102.5L120.5 96.5" stroke="#fff" stroke-width="11" fill="none"/>
+  <!-- mão no queixo -->
+  <ellipse cx="114" cy="87" rx="9" ry="8" fill="#e9a97f" transform="rotate(-20 114 87)"/>
+  <path d="M106.5 83.5Q110 81 114 82.5M106 88Q110 85.5 114.5 87M107.5 92Q111 90 115 91.5" stroke="#c98563" stroke-width="1" fill="none" stroke-linecap="round" opacity=".7"/>
 
-        <!-- Pescoço -->
-        <path d="M98 100 L114 100 L114 124 L98 124 Z" fill="#df9b6f" />
-
-        <!-- Cabeça e Rosto -->
-        <g id="head">
-          <path d="M90 62 C88 95 96 108 107 108 C118 108 126 95 124 62 C123 38 91 38 90 62 Z" fill="#e8a87c" />
-          <ellipse cx="123" cy="74" rx="4.5" ry="7" fill="#e8a87c" />
-          <circle cx="123" cy="77" r="1.5" fill="#f7cb45" />
-
-          <!-- Expressão Facial Pensativa -->
-          <path d="M95 58 Q100 54 104 57" stroke="#2c2838" stroke-width="1.8" stroke-linecap="round" fill="none" />
-          <path d="M110 57 Q115 54 120 58" stroke="#2c2838" stroke-width="1.8" stroke-linecap="round" fill="none" />
-          <ellipse cx="100" cy="65" rx="2.5" ry="3.2" fill="#2c2838" />
-          <circle cx="101" cy="64" r="1" fill="#ffffff" />
-          <ellipse cx="115" cy="65" rx="2.5" ry="3.2" fill="#2c2838" />
-          <circle cx="116" cy="64" r="1" fill="#ffffff" />
-          <path d="M106 67 L105 74 L108 75" stroke="#cc8557" stroke-width="1.4" stroke-linecap="round" fill="none" />
-          <path d="M101 84 Q107 90 114 84" stroke="#c05f3b" stroke-width="2" stroke-linecap="round" fill="none" />
-        </g>
-
-        <!-- Coque e Cabelo Frontal -->
-        <g id="hairFront">
-          <ellipse cx="108" cy="28" rx="20" ry="16" fill="url(#hairGrad)" />
-          <path d="M96 28 C104 22 116 22 122 28" stroke="#ee6a1f" stroke-width="3" stroke-linecap="round" fill="none" />
-          <path d="M88 56 C94 40 118 36 126 52 C120 44 102 46 92 56 Z" fill="url(#hairGrad)" />
-          <path d="M88 56 C86 70 88 88 92 98 C88 84 86 68 88 56 Z" fill="url(#hairGrad)" />
-        </g>
-
-        <!-- Braço Direito com a MÃO NO QUEIXO -->
-        <g id="rightArmThoughtful">
-          <path d="M132 130 L152 180 L138 188 L122 138 Z" fill="url(#blazerGrad)" />
-          <path d="M152 180 L124 104 L114 110 L138 188 Z" fill="url(#blazerGrad)" />
-          <path d="M114 110 L124 104 L126 109 L116 115 Z" fill="#e09e1e" />
-
-          <!-- Mão no queixo -->
-          <ellipse cx="118" cy="98" rx="7" ry="6" fill="#e8a87c" />
-          <path d="M114 98 C112 90 111 82 113 78 C115 77 118 78 118 84 L117 96 Z" fill="#e8a87c" />
-          <path d="M112 98 Q106 97 103 94 C102 92 105 91 108 93 Q112 95 116 97 Z" fill="#df9b6f" />
-        </g>
-      </svg>
+  <!-- cabeça -->
+  <ellipse cx="100" cy="66" rx="20" ry="24" fill="#e9a97f"/>
+  <!-- cabelo: touca, coque e faixa -->
+  <path d="M79 68Q76 40 100 38Q124 40 121 68Q118 52 100 50Q82 52 79 68Z" fill="#1d2347"/>
+  <circle cx="100" cy="29" r="11" fill="#1d2347"/>
+  <path d="M90 33Q100 27 110 33" stroke="#9db83a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- rosto -->
+  <path d="M88 64Q92 61 96 64M104 64Q108 61 112 64" stroke="#1d2347" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M88 57Q92 55 96 57M104 57Q108 55 112 57" stroke="#1d2347" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M94 76Q100 81 106 76" stroke="#b8604a" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="89" cy="73" r="3" fill="#ef9a7a" opacity=".45"/>
+</svg>
     </div>
   </main>
+
+  <!-- Rodapé Institucional do Cartão -->
+  <footer class="card-footer">
+    <p class="footer-text">Projeto desenvolvido com apoio do edital FAPESB</p>
+    <div class="footer-logos">
+      <div class="footer-logo">
+        <img
+          src="img/logos/fapesb_secti.png"
+          alt="Logo da FAPESB e Governo do Estado da Bahia - Secretaria de Ciência, Tecnologia e Inovação"
+          loading="lazy"
+        >
+      </div>
+      <div class="footer-logo">
+        <img
+          src="img/logos/ifba.png"
+          alt="Logo do Instituto Federal da Bahia - Campus Paulo Afonso"
+          loading="lazy"
+        >
+      </div>
+      <div class="footer-logo">
+        <img
+          src="img/logos/ncti.png"
+          alt="Logo do NCTI - Núcleo de Pesquisa em Ciência, Tecnologia e Inovação"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </footer>
 
   <!-- Folhagens Decorativas nos Cantos Inferiores do Cartão -->
   <div class="foot-foliage" aria-hidden="true">
