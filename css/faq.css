@@ -545,17 +545,13 @@ mark.highlight {
 }
 
 .footer-logo {
-  background: #ffffff;
-  padding: 10px 16px;
-  border-radius: 14px;
-  display: inline-flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .footer-logo img {
-  height: 44px;
+  height: 64px;
   width: auto;
   object-fit: contain;
   display: block;
