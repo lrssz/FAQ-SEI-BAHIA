@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dúvida · Fórum SEI Bahia</title>
+  <meta name="description" content="Detalhes da dúvida e respostas da comunidade de servidores no fórum de capacitação do SEI Bahia.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ee6a1f'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    /* Estilos Específicos da Página de Pergunta (Protótipo SEI Bahia) */
+    .pergunta-main {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: clamp(20px, 3.5vw, 36px);
+    }
+
+    /* Faixa de Aviso de Demonstração */
+    .demo-banner {
+      background: var(--badge-bg);
+      border: 1.5px solid var(--accent);
+      border-radius: 14px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+      font-size: 13.5px;
+      line-height: 1.45;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .demo-banner-icon {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .demo-banner strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Barra Superior com Link Voltar e Seletor de Perfil */
+    .top-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      background: var(--field);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 14px 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .btn-back-forum {
+      font: 600 13px 'Poppins', sans-serif;
+      color: var(--accent);
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-back-forum:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      transform: translateX(-3px);
+      box-shadow: 0 4px 12px rgba(15, 111, 174, 0.2);
+    }
+
+    .profile-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .profile-label {
+      font: 600 12px 'Poppins', sans-serif;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .profile-select-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .profile-select {
+      font: 600 13px 'Poppins', sans-serif;
+      color: var(--ink);
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 36px 6px 14px;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: all 0.2s;
+    }
+
+    .profile-select:hover, .profile-select:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .profile-select-arrow {
+      position: absolute;
+      right: 12px;
+      pointer-events: none;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .active-profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 12.5px;
+      color: var(--ink);
+    }
+
+    .profile-badge-sub {
+      color: var(--text-muted);
+      font-size: 11.5px;
+    }
+
+    .btn-reset-data {
+      font: 600 12px 'Poppins', sans-serif;
+      color: var(--text-muted);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-reset-data:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-reset-data svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* Estado de Pergunta Não Encontrada */
+    .not-found-card {
+      padding: 48px 24px;
+      text-align: center;
+      background: var(--field);
+      border-radius: 22px;
+      border: 1.5px dashed var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .not-found-card[hidden] {
+      display: none !important;
+    }
+
+    .not-found-icon {
+      font-size: 44px;
+      margin-bottom: 2px;
+    }
+
+    .not-found-card h2 {
+      margin: 0;
+      font: 700 22px 'Poppins', sans-serif;
+      color: var(--ink);
+    }
+
+    .not-found-card p {
+      margin: 0;
+      font-size: 14.5px;
+      color: var(--text-muted);
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    .btn-primary-link {
+      margin-top: 8px;
+      font: 600 13px 'Poppins', sans-serif;
+      background: var(--accent);
+      color: #ffffff;
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 22px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-primary-link:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Bloco da Pergunta */
+    .question-detail-card {
+      background: var(--field);
+      border: 1.5px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(22px, 3.8vw, 36px);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      position: relative;
+    }
+
+    .question-detail-card.is-pinned {
+      border-left: 6px solid var(--accent);
+      background: var(--badge-bg);
+    }
+
+    .question-detail-card.is-hidden {
+      border-left: 6px solid #eab308;
+    }
+
+    .card-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge-pinned {
+      font: 700 11px 'Poppins', sans-serif;
+      color: var(--accent);
+      background: var(--sel);
+      border: 1px solid rgba(15, 111, 174, 0.3);
+      border-radius: 999px;
+      padding: 3px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-cat-badge {
+      font: 600 11px 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 12px;
+    }
+
+    .badge-status {
+      font: 700 10.5px 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 999px;
+      padding: 3px 10px;
+    }
+
+    .status-aberta {
+      color: #0369a1;
+      background: #e0f2fe;
+      border: 1px solid #bae6fd;
+    }
+
+    .status-respondida {
+      color: #15803d;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status-oculta {
+      color: #b45309;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+    }
+
+    :root[data-theme="dark"] .status-aberta {
+      color: #7dd3fc;
+      background: #082f49;
+      border-color: #0369a1;
+    }
+
+    :root[data-theme="dark"] .status-respondida {
+      color: #86efac;
+      background: #052e16;
+      border-color: #15803d;
+    }
+
+    :root[data-theme="dark"] .status-oculta {
+      color: #fcd34d;
+      background: #451a03;
+      border-color: #b45309;
+    }
+
+    .question-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .question-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action-pill {
+      font: 600 12px 'Poppins', sans-serif;
+      color: var(--ink);
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-action-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .question-detail-title {
+      margin: 0;
+      font: 700 clamp(22px, 3.2vw, 30px)/1.25 'Poppins', sans-serif;
+      color: var(--ink);
+      letter-spacing: -0.015em;
+    }
+
+    .question-detail-text {
+      font: 400 15px/1.7 'Roboto', sans-serif;
+      color: var(--ink);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .question-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .meta-group {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-author {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .meta-edited {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Formulários Inline (Edição de Pergunta e Respostas) */
+    .inline-edit-box {
+      background: var(--card);
+      border: 1.5px solid var(--accent);
+      border-radius: 18px;
+      padding: 18px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font: 600 13px 'Poppins', sans-serif;
+      color: var(--ink);
+    }
+
+    .form-group .req {
+      color: #ef4444;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font: 400 14px 'Roboto', sans-serif;
+      color: var(--ink);
+      background: var(--field);
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 14px;
+      transition: all 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      background: var(--field-focus);
+      outline: none;
+    }
+
+    .char-counter {
+      align-self: flex-end;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .form-error {
+      background: #fee2e2;
+      border: 1px solid #f87171;
+      color: #991b1b;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    :root[data-theme="dark"] .form-error {
+      background: #451a1a;
+      border-color: #7f1d1d;
+      color: #fca5a5;
+    }
+
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+
+    .btn-submit {
+      font: 600 13px 'Poppins', sans-serif;
+      color: #ffffff;
+      background: var(--accent);
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 22px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-cancel {
+      font: 600 13px 'Poppins', sans-serif;
+      color: var(--text-muted);
+      background: transparent;
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-cancel:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    /* Seção de Respostas */
+    .replies-section {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .replies-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 4px;
+    }
+
+    .replies-title {
+      margin: 0;
+      font: 700 20px 'Poppins', sans-serif;
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .replies-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Cartão de Resposta */
+    .response-card {
+      background: var(--field);
+      border: 1.5px solid var(--line);
+      border-radius: 20px;
+      padding: clamp(18px, 3vw, 24px);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .response-card.response-accepted {
+      border-color: #16a34a;
+      border-left: 6px solid #16a34a;
+      background: var(--badge-bg);
+      box-shadow: 0 6px 20px rgba(22, 163, 74, 0.09);
+    }
+
+    :root[data-theme="dark"] .response-card.response-accepted {
+      border-color: #22c55e;
+      border-left: 6px solid #22c55e;
+      background: var(--field);
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.12);
+    }
+
+    .response-card.is-hidden {
+      border-left: 6px solid #eab308;
+      opacity: 0.9;
+    }
+
+    .response-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .response-author-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      font-size: 13px;
+    }
+
+    .response-author-name {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .response-author-org {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .response-date {
+      color: var(--text-muted);
+      font-size: 12.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .response-badges-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge-accepted {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font: 700 11.5px 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #15803d;
+      background: #dcfce7;
+      border: 1.5px solid #16a34a;
+      border-radius: 999px;
+      padding: 3px 12px;
+    }
+
+    :root[data-theme="dark"] .badge-accepted {
+      color: #86efac;
+      background: #052e16;
+      border-color: #22c55e;
+    }
+
+    .response-body {
+      margin: 0;
+      font: 400 14.5px/1.65 'Roboto', sans-serif;
+      color: var(--ink);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .response-actions-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .response-author-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-reply-action {
+      font: 600 11.5px 'Poppins', sans-serif;
+      color: var(--text-muted);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+
+    .btn-reply-action:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+      transform: translateY(-1px);
+    }
+
+    .btn-reply-action.btn-delete:hover {
+      color: #ef4444;
+      border-color: #ef4444;
+    }
+
+    .btn-accept-reply {
+      font: 600 12px 'Poppins', sans-serif;
+      color: #15803d;
+      background: var(--card);
+      border: 1.5px solid #16a34a;
+      border-radius: 999px;
+      padding: 5px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-accept-reply:hover {
+      background: #16a34a;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+    }
+
+    :root[data-theme="dark"] .btn-accept-reply {
+      color: #86efac;
+      border-color: #22c55e;
+    }
+
+    :root[data-theme="dark"] .btn-accept-reply:hover {
+      background: #22c55e;
+      color: #052e16;
+    }
+
+    .empty-replies-box {
+      padding: 36px 20px;
+      text-align: center;
+      background: var(--field);
+      border: 1.5px dashed var(--line);
+      border-radius: 18px;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    .empty-replies-box[hidden] {
+      display: none !important;
+    }
+
+    /* Seção de Envio de Nova Resposta */
+    .new-reply-section {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .new-reply-panel {
+      background: var(--field);
+      border: 1.5px solid var(--accent);
+      border-radius: 22px;
+      padding: clamp(20px, 3.5vw, 30px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .new-reply-title {
+      margin: 0;
+      font: 700 18px 'Poppins', sans-serif;
+      color: var(--ink);
+    }
+
+    /* Aviso Fixo de Sigilo */
+    .security-notice {
+      background: var(--card);
+      border-left: 4px solid #eab308;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .security-notice-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* Aviso para Visitante */
+    .reply-auth-box {
+      background: var(--field);
+      border: 1.5px dashed var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--ink);
+    }
+
+    .reply-auth-box[hidden] {
+      display: none !important;
+    }
+
+    .reply-auth-box .auth-notice-sub {
+      margin: 4px 0 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .btn-quick-login {
+      font: 600 12px 'Poppins', sans-serif;
+      color: var(--accent);
+      background: transparent;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 5px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-quick-login:hover {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    /* Rodapé Institucional */
+    .card-footer {
+      position: relative;
+      z-index: 5;
+      margin-top: clamp(36px, 5vw, 56px);
+      padding-top: clamp(20px, 3vw, 28px);
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-text {
+      margin: 0 0 20px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .footer-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      background: #ffffff;
+      padding: 10px 16px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .footer-logo img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Responsividade */
+    @media (max-width: 680px) {
+      .top-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .profile-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .question-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .response-actions-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .reply-auth-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .footer-logos {
+        gap: 12px;
+      }
+      .footer-logo img {
+        height: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Cabeçalho Institucional Compartilhado -->
+  <header>
+    <a href="index.html" class="brand" aria-label="Ir para a página inicial">
+      <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+        <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+        <polyline points="10 9 9 9 8 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"></polyline>
+      </svg>
+      <span>SEI BAHIA · CAPACITAÇÃO</span>
+    </a>
+
+    <nav aria-label="Navegação Principal">
+      <a href="index.html">INÍCIO</a>
+      <a href="apostila.html">APOSTILA</a>
+      <a href="faq.html">FAQ</a>
+      <a href="forum.html" aria-current="page">FÓRUM</a>
+    </nav>
+
+    <div class="header-actions">
+      <span class="hello">OLÁ, <b>SERVIDOR(A)</b></span>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+        <svg id="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal da Pergunta -->
+  <main class="pergunta-main" id="pergunta-principal">
+    
+    <!-- Faixa de Aviso de Demonstração (Topo) -->
+    <aside class="demo-banner" role="status" aria-label="Aviso de protótipo de demonstração">
+      <svg class="demo-banner-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span>
+        <strong>Protótipo de demonstração.</strong> Os dados ficam salvos apenas neste navegador e não são compartilhados.
+      </span>
+    </aside>
+
+    <!-- Barra Superior: Link de Voltar e Simulador de Perfil -->
+    <section class="top-toolbar" aria-label="Navegação e controle de perfil">
+      <a href="forum.html" class="btn-back-forum" id="btnVoltarForum" aria-label="Voltar para a lista do fórum">
+        <span aria-hidden="true">←</span> Voltar ao fórum
+      </a>
+
+      <div class="profile-controls">
+        <label for="profileSelector" class="profile-label">Simular Perfil:</label>
+        <div class="profile-select-wrap">
+          <select id="profileSelector" class="profile-select" aria-label="Selecione o perfil de usuário para simulação">
+            <option value="visitante">Visitante (Sem login)</option>
+            <option value="usuario">Usuário (Maria Souza · SEC)</option>
+            <option value="moderador">Moderador (João Lima · SAEB)</option>
+          </select>
+          <span class="profile-select-arrow" aria-hidden="true">▼</span>
+        </div>
+
+        <div class="active-profile-badge" id="activeProfileBadge" role="status" aria-live="polite">
+          <!-- Preenchido via js/pergunta.js -->
+        </div>
+
+        <button type="button" class="btn-reset-data" id="btnResetDados" title="Restaurar dados originais de demonstração">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+          </svg>
+          <span>Resetar</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Estado: Pergunta Não Encontrada -->
+    <section class="not-found-card" id="perguntaNaoEncontrada" hidden role="region" aria-live="polite">
+      <div class="not-found-icon" aria-hidden="true">🔍</div>
+      <h2>Pergunta não encontrada</h2>
+      <p>A pergunta que você está tentando acessar não existe, foi excluída ou está oculta para o seu perfil de acesso.</p>
+      <a href="forum.html" class="btn-primary-link">
+        <span aria-hidden="true">←</span> Voltar ao fórum de dúvidas
+      </a>
+    </section>
+
+    <!-- Container do Conteúdo da Pergunta e Respostas -->
+    <div id="perguntaConteudo" style="display: flex; flex-direction: column; gap: 24px;">
+      
+      <!-- Bloco da Pergunta -->
+      <article class="question-detail-card" id="blocoPergunta" aria-labelledby="perguntaTitulo">
+        <div class="question-header">
+          <div class="card-badges" id="perguntaBadgesWrap">
+            <span class="badge-pinned" id="perguntaBadgePinned" hidden aria-hidden="true">
+              📌 Fixada
+            </span>
+            <span class="card-cat-badge" id="perguntaCategoriaChip"></span>
+            <span class="badge-status" id="perguntaStatusBadge"></span>
+          </div>
+
+          <div class="question-header-actions" id="perguntaHeaderActions">
+            <!-- Botão Editar Pergunta (visível para autor e moderador) -->
+            <button type="button" class="btn-action-pill" id="btnEditarPergunta" style="display: none;" aria-expanded="false" aria-controls="formEditarPerguntaWrap">
+              ✏️ Editar pergunta
+            </button>
+            
+            <!-- Ações rápidas de moderação (visíveis para moderador) -->
+            <div id="perguntaModActions" style="display: none; align-items: center; gap: 8px;"></div>
+          </div>
+        </div>
+
+        <!-- Título e Texto da Pergunta -->
+        <h1 class="question-detail-title" id="perguntaTitulo"></h1>
+        <div class="question-detail-text" id="perguntaTexto"></div>
+
+        <!-- Formulário Inline de Edição da Pergunta (Oculto por padrão) -->
+        <div class="inline-edit-box" id="formEditarPerguntaWrap" hidden>
+          <form id="formEditarPergunta" novalidate>
+            <div class="form-group">
+              <label for="editPerguntaTitulo">Título da pergunta <span class="req" aria-hidden="true">*</span></label>
+              <input type="text" id="editPerguntaTitulo" name="titulo" maxlength="120" required aria-describedby="editPerguntaTituloCount">
+              <div class="char-counter"><span id="editPerguntaTituloCount">0</span> / 120 caracteres</div>
+            </div>
+
+            <div class="form-group">
+              <label for="editPerguntaCategoria">Categoria <span class="req" aria-hidden="true">*</span></label>
+              <select id="editPerguntaCategoria" name="categoria" required>
+                <option value="Acesso">Acesso</option>
+                <option value="Processos">Processos</option>
+                <option value="Documentos">Documentos</option>
+                <option value="Blocos">Blocos</option>
+                <option value="Busca">Busca</option>
+                <option value="Usuários externos">Usuários externos</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="editPerguntaTexto">Texto detalhado da dúvida <span class="req" aria-hidden="true">*</span></label>
+              <textarea id="editPerguntaTexto" name="texto" rows="6" maxlength="2000" required aria-describedby="editPerguntaTextoCount"></textarea>
+              <div class="char-counter"><span id="editPerguntaTextoCount">0</span> / 2000 caracteres</div>
+            </div>
+
+            <div class="form-error" id="erroEditarPergunta" hidden role="alert" aria-live="polite"></div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-submit">Salvar alterações</button>
+              <button type="button" class="btn-cancel" id="btnCancelarEditarPergunta">Cancelar</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Metadados da Pergunta -->
+        <div class="question-meta">
+          <div class="meta-group">
+            <span class="meta-item meta-author">
+              <span aria-hidden="true">👤</span>
+              <span id="perguntaAutorNome"></span>
+            </span>
+            <span class="meta-item">
+              <span aria-hidden="true">🕒</span>
+              <span id="perguntaDataRelativa" title=""></span>
+            </span>
+            <span class="meta-edited" id="perguntaEditadaInfo" hidden></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Seção de Respostas -->
+      <section class="replies-section" id="secaoRespostas" aria-labelledby="tituloRespostas">
+        <div class="replies-header">
+          <h2 id="tituloRespostas" class="replies-title">
+            <span>Respostas</span>
+            <span id="contagemRespostasBadge" style="font-size: 15px; font-weight: 600; color: var(--text-muted);">(0)</span>
+          </h2>
+        </div>
+
+        <!-- Lista Dinâmica de Respostas -->
+        <div class="replies-list" id="listaRespostas" role="region" aria-label="Lista de respostas da comunidade">
+          <!-- Preenchido via js/pergunta.js -->
+        </div>
+
+        <!-- Mensagem de Nenhuma Resposta -->
+        <div class="empty-replies-box" id="emptyRepliesBox" hidden>
+          Ainda não há respostas para esta dúvida. Seja o primeiro a responder!
+        </div>
+      </section>
+
+      <!-- Formulário "Sua resposta" -->
+      <section class="new-reply-section" id="secaoNovaResposta" aria-labelledby="tituloNovaResposta">
+        
+        <!-- Para Visitante: Aviso de Autenticação -->
+        <div class="reply-auth-box" id="authNoticeBox" hidden role="status">
+          <div class="security-notice-icon" aria-hidden="true" style="font-size: 28px;">🔒</div>
+          <div>
+            <strong>Entre como usuário para responder.</strong>
+            <p class="auth-notice-sub">Você está no perfil de Visitante. Alterne para Usuário ou Moderador para contribuir com esta dúvida.</p>
+            <button type="button" class="btn-quick-login" id="btnQuickLogin">Simular login como Maria Souza</button>
+          </div>
+        </div>
+
+        <!-- Para Usuário e Moderador: Formulário Completo -->
+        <div class="new-reply-panel" id="formNovaRespostaWrapper">
+          <h3 id="tituloNovaResposta" class="new-reply-title">Sua resposta</h3>
+
+          <!-- Aviso Fixo Obrigatório -->
+          <div class="security-notice" role="note">
+            <span class="security-notice-icon" aria-hidden="true">⚠️</span>
+            <div>
+              <strong>Aviso Importante:</strong> Não publique números de processos reais, dados pessoais de cidadãos ou informações sigilosas.
+            </div>
+          </div>
+
+          <form id="formNovaResposta" novalidate>
+            <div class="form-group">
+              <label for="textoNovaResposta" id="labelNovaResposta">
+                Orientações da resposta <span class="req" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="textoNovaResposta"
+                name="texto"
+                rows="5"
+                maxlength="2000"
+                placeholder="Escreva orientações práticas, passos recomendados e referências para ajudar o colega servidor..."
+                required
+                aria-describedby="novaRespostaCharCount"
+              ></textarea>
+              <div class="char-counter"><span id="novaRespostaCharCount">0</span> / 2000 caracteres</div>
+            </div>
+
+            <div class="form-error" id="erroNovaResposta" hidden role="alert" aria-live="polite"></div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-submit" id="btnSubmitResposta">Publicar Resposta</button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- Região Viva para Anúncios em Leitores de Tela -->
+    <div id="feedbackRegion" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;" aria-live="polite"></div>
+  </main>
+
+  <!-- Rodapé Institucional do Cartão -->
+  <footer class="card-footer">
+    <p class="footer-text">Projeto desenvolvido com apoio do edital FAPESB</p>
+    <div class="footer-logos">
+      <div class="footer-logo">
+        <img
+          src="img/logos/fapesb_secti.png"
+          alt="Logo da FAPESB e Governo do Estado da Bahia - Secretaria de Ciência, Tecnologia e Inovação"
+          loading="lazy"
+        >
+      </div>
+      <div class="footer-logo">
+        <img
+          src="img/logos/ifba.png"
+          alt="Logo do Instituto Federal da Bahia - Campus Paulo Afonso"
+          loading="lazy"
+        >
+      </div>
+      <div class="footer-logo">
+        <img
+          src="img/logos/ncti.png"
+          alt="Logo do NCTI - Núcleo de Pesquisa em Ciência, Tecnologia e Inovação"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </footer>
+
+  <!-- Folhagens Decorativas nos Cantos Inferiores do Cartão -->
+  <div class="foot-foliage" aria-hidden="true">
+    <svg class="foliage-left" viewBox="0 0 240 100">
+      <path d="M0 100 L0 52 C16 40 28 60 42 44 C52 18 72 4 84 32 C90 48 104 34 116 44 C132 58 150 36 168 52 C182 66 202 56 218 72 C228 82 234 94 240 100 Z"></path>
+      <path d="M12 100 C30 50 65 55 90 90 C60 88 40 92 12 100 Z" opacity="0.6"></path>
+    </svg>
+    <svg class="foliage-right" viewBox="0 0 240 100">
+      <path d="M0 100 L0 52 C16 40 28 60 42 44 C52 18 72 4 84 32 C90 48 104 34 116 44 C132 58 150 36 168 52 C182 66 202 56 218 72 C228 82 234 94 240 100 Z"></path>
+      <path d="M12 100 C30 50 65 55 90 90 C60 88 40 92 12 100 Z" opacity="0.6"></path>
+    </svg>
+  </div>
+</div>
+
+<!-- Scripts Separados e Modulares -->
+<script src="js/theme.js"></script>
+<script src="js/api.js"></script>
+<script src="js/pergunta.js"></script>
+</body>
+</html>

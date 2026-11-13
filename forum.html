@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fórum de Dúvidas · SEI Bahia Capacitação</title>
+  <meta name="description" content="Fórum colaborativo de dúvidas para capacitação de servidores municipais no SEI Bahia. Compartilhe experiências e consulte soluções para tramitação de processos.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ee6a1f'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cpolyline points='14 2 14 8 20 8' fill='none' stroke='%23ffffff' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+    /* Estilos Específicos do Fórum (Protótipo de Demonstração) */
+    .forum-main {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: clamp(20px, 3.5vw, 36px);
+    }
+
+    /* Faixa de Aviso de Demonstração */
+    .demo-banner {
+      background: var(--badge-bg);
+      border: 1.5px solid var(--accent);
+      border-radius: 14px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+      font-size: 13.5px;
+      line-height: 1.45;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .demo-banner-icon {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .demo-banner strong {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Cabeçalho do Fórum e Barra de Ferramentas */
+    .forum-hero {
+      background: var(--field);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: clamp(22px, 3.5vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .forum-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font: 700 11px 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 12px;
+      margin-bottom: 8px;
+    }
+
+    .forum-hero h1 {
+      margin: 0 0 6px;
+      font: 700 clamp(26px, 3.8vw, 36px)/1.15 'Poppins', sans-serif;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .forum-hero p {
+      margin: 0;
+      font-size: 14.5px;
+      color: var(--text);
+      max-width: 680px;
+    }
+
+    /* Barra de Simulação de Perfis e Ações */
+    .forum-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 16px;
+      border-top: 1px dashed var(--line);
+    }
+
+    .profile-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .profile-label {
+      font: 600 12px 'Poppins', sans-serif;
+      color: var(--ink);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .profile-select-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .profile-select {
+      font: 600 13px 'Poppins', sans-serif;
+      color: var(--ink);
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 36px 6px 14px;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: all 0.2s;
+    }
+
+    .profile-select:hover, .profile-select:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .profile-select-arrow {
+      position: absolute;
+      right: 12px;
+      pointer-events: none;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .active-profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 14px;
+      font-size: 12.5px;
+      color: var(--ink);
+    }
+
+    .profile-badge-sub {
+      color: var(--text-muted);
+      font-size: 11.5px;
+    }
+
+    .btn-reset-data {
+      font: 600 12px 'Poppins', sans-serif;
+      color: var(--text-muted);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-reset-data:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-reset-data svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    /* Busca e Filtros */
+    .search-filter-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .search-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      background: var(--field);
+      border-radius: 999px;
+      padding: 0 18px;
+      height: 48px;
+      border: 2px solid transparent;
+      transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+    }
+
+    .search:focus-within {
+      background: var(--field-focus);
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(15, 111, 174, 0.14);
+    }
+
+    .search-icon {
+      width: 20px;
+      height: 20px;
+      stroke: var(--text-muted);
+      fill: none;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+      margin-right: 10px;
+    }
+
+    .search:focus-within .search-icon {
+      stroke: var(--accent);
+    }
+
+    .search input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      background: transparent;
+      outline: none;
+      font: 400 14.5px 'Roboto', sans-serif;
+      color: var(--ink);
+    }
+
+    .search input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.9;
+    }
+
+    .clear-btn {
+      background: none;
+      border: 0;
+      padding: 4px;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .clear-btn:hover {
+      color: var(--ink);
+      background: var(--line);
+    }
+
+    .clear-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* Grupos de Chips */
+    .filter-groups {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font: 600 11.5px 'Poppins', sans-serif;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      min-width: 80px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .chip-btn {
+      font: 500 12px 'Poppins', sans-serif;
+      border: 1.5px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 5px 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .chip-btn .chip-count {
+      font-size: 10px;
+      font-weight: 600;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 1px 6px;
+      line-height: 1.3;
+      transition: all 0.2s;
+    }
+
+    .chip-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .chip-btn[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(15, 111, 174, 0.25);
+    }
+
+    .chip-btn[aria-pressed="true"] .chip-count {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: transparent;
+      color: #ffffff;
+    }
+
+    /* Linha de Ação: Contagem e Botão Nova Pergunta */
+    .forum-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 6px;
+      padding: 0 4px;
+      flex-wrap: wrap;
+    }
+
+    .results-count {
+      font: 600 13px 'Poppins', sans-serif;
+      color: var(--text-muted);
+    }
+
+    .btn-new-question {
+      font: 600 13.5px 'Poppins', sans-serif;
+      color: #ffffff;
+      background: var(--accent);
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 14px rgba(15, 111, 174, 0.25);
+    }
+
+    .btn-new-question:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(15, 111, 174, 0.35);
+    }
+
+    /* Aviso para Visitante na barra de ações */
+    .auth-notice-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--field);
+      border: 1px dashed var(--line);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .btn-quick-login {
+      font: 600 11.5px 'Poppins', sans-serif;
+      color: var(--accent);
+      background: transparent;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 3px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-quick-login:hover {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    /* Painel do Formulário de Nova Pergunta */
+    .new-question-panel {
+      background: var(--field);
+      border: 1.5px solid var(--accent);
+      border-radius: 20px;
+      padding: clamp(20px, 3vw, 28px);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font: 700 18px 'Poppins', sans-serif;
+      color: var(--ink);
+    }
+
+    /* Aviso de Sigilo Fixo Obrigatório */
+    .security-notice {
+      background: var(--card);
+      border-left: 4px solid #eab308;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12.8px;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .security-notice-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font: 600 13px 'Poppins', sans-serif;
+      color: var(--ink);
+    }
+
+    .form-group .req {
+      color: #ef4444;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font: 400 14px 'Roboto', sans-serif;
+      color: var(--ink);
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 14px;
+      transition: all 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      background: var(--field-focus);
+      outline: none;
+    }
+
+    .char-counter {
+      align-self: flex-end;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .form-error {
+      background: #fee2e2;
+      border: 1px solid #f87171;
+      color: #991b1b;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    :root[data-theme="dark"] .form-error {
+      background: #451a1a;
+      border-color: #7f1d1d;
+      color: #fca5a5;
+    }
+
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .btn-submit {
+      font: 600 13px 'Poppins', sans-serif;
+      color: #ffffff;
+      background: var(--accent);
+      border: 0;
+      border-radius: 999px;
+      padding: 10px 22px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-cancel {
+      font: 600 13px 'Poppins', sans-serif;
+      color: var(--text-muted);
+      background: transparent;
+      border: 1.5px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 18px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-cancel:hover {
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    /* Lista de Cartões de Perguntas */
+    .questions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .forum-card {
+      background: var(--field);
+      border: 1.5px solid var(--line);
+      border-radius: 18px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .forum-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+      transform: translateY(-1px);
+    }
+
+    .forum-card.is-pinned {
+      border-left: 5px solid var(--accent);
+      background: var(--badge-bg);
+    }
+
+    .forum-card.is-hidden {
+      border-left: 5px solid #eab308;
+      opacity: 0.92;
+    }
+
+    .forum-card.just-created {
+      animation: highlightNew 2s ease-out;
+    }
+
+    @keyframes highlightNew {
+      0% { box-shadow: 0 0 0 3px var(--accent); }
+      100% { box-shadow: none; }
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .card-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge-pinned {
+      font: 700 11px 'Poppins', sans-serif;
+      color: var(--accent);
+      background: var(--sel);
+      border: 1px solid rgba(15, 111, 174, 0.3);
+      border-radius: 999px;
+      padding: 2px 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-cat-badge {
+      font: 600 11px 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 10px;
+    }
+
+    .badge-status {
+      font: 700 10.5px 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-radius: 999px;
+      padding: 2px 8px;
+    }
+
+    .status-aberta {
+      color: #0369a1;
+      background: #e0f2fe;
+      border: 1px solid #bae6fd;
+    }
+
+    .status-respondida {
+      color: #15803d;
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+    }
+
+    .status-oculta {
+      color: #b45309;
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+    }
+
+    :root[data-theme="dark"] .status-aberta {
+      color: #7dd3fc;
+      background: #082f49;
+      border-color: #0369a1;
+    }
+
+    :root[data-theme="dark"] .status-respondida {
+      color: #86efac;
+      background: #052e16;
+      border-color: #15803d;
+    }
+
+    :root[data-theme="dark"] .status-oculta {
+      color: #fcd34d;
+      background: #451a03;
+      border-color: #b45309;
+    }
+
+    /* Ações de Moderação no Card */
+    .mod-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-mod {
+      font: 600 11px 'Poppins', sans-serif;
+      color: var(--text-muted);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 3px 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-mod:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-mod-resolve {
+      color: #15803d;
+    }
+
+    .btn-mod-resolve:hover {
+      background: #15803d;
+      color: #ffffff;
+      border-color: #15803d;
+    }
+
+    /* Conteúdo do Card */
+    .card-title {
+      margin: 0;
+      font: 700 17px/1.35 'Poppins', sans-serif;
+      color: var(--ink);
+    }
+
+    .card-snippet {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+
+    /* Metadados do Rodapé do Card */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    .meta-info-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .card-author, .card-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .card-author {
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .meta-icon {
+      font-size: 13px;
+    }
+
+    .btn-toggle-replies {
+      font: 600 12.5px 'Poppins', sans-serif;
+      color: var(--accent);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 5px 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-toggle-replies:hover {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    /* Painel de Respostas Expandível dentro do Card */
+    .card-replies-panel {
+      margin-top: 8px;
+      padding-top: 16px;
+      border-top: 1.5px dashed var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .full-question-box {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .full-question-title {
+      font: 700 12px 'Poppins', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+
+    .full-question-p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ink);
+      white-space: pre-wrap;
+    }
+
+    .replies-list-heading {
+      margin: 0;
+      font: 700 14px 'Poppins', sans-serif;
+      color: var(--ink);
+    }
+
+    .replies-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .reply-item {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .reply-item.is-hidden {
+      border-left: 4px solid #eab308;
+      opacity: 0.85;
+    }
+
+    .reply-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .reply-author {
+      color: var(--ink);
+    }
+
+    .reply-body {
+      margin: 0;
+      font-size: 13.8px;
+      line-height: 1.6;
+      color: var(--text);
+      white-space: pre-wrap;
+    }
+
+    .no-replies-text {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .reply-form-area {
+      margin-top: 6px;
+    }
+
+    .reply-auth-notice {
+      background: var(--card);
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .reply-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .reply-label {
+      font: 600 12.5px 'Poppins', sans-serif;
+      color: var(--ink);
+    }
+
+    .reply-form textarea {
+      font: 400 13.5px 'Roboto', sans-serif;
+      color: var(--ink);
+      background: var(--card);
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 12px;
+      resize: vertical;
+    }
+
+    .reply-form textarea:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    .reply-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-submit-reply {
+      font: 600 12px 'Poppins', sans-serif;
+      color: #ffffff;
+      background: var(--accent);
+      border: 0;
+      border-radius: 999px;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-submit-reply:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Estado Vazio Amigável */
+    .empty-state {
+      padding: 44px 20px;
+      text-align: center;
+      background: var(--field);
+      border-radius: 20px;
+      margin-top: 8px;
+      border: 1.5px dashed var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .empty-state[hidden] {
+      display: none;
+    }
+
+    .empty-state-icon {
+      font-size: 38px;
+      margin-bottom: 2px;
+    }
+
+    .empty-state h3 {
+      margin: 0;
+      font: 700 17px 'Poppins', sans-serif;
+      color: var(--ink);
+    }
+
+    .empty-state p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 440px;
+      line-height: 1.5;
+    }
+
+    .btn-reset-search {
+      margin-top: 8px;
+      font: 600 12.5px 'Poppins', sans-serif;
+      background: var(--accent);
+      color: #ffffff;
+      border: 0;
+      border-radius: 999px;
+      padding: 8px 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-reset-search:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Rodapé Institucional */
+    .card-footer {
+      position: relative;
+      z-index: 5;
+      margin-top: clamp(36px, 5vw, 56px);
+      padding-top: clamp(20px, 3vw, 28px);
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-text {
+      margin: 0 0 20px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .footer-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      background: #ffffff;
+      padding: 10px 16px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .footer-logo img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Responsividade */
+    @media (max-width: 680px) {
+      .forum-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .profile-controls {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .forum-action-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .btn-new-question, .auth-notice-box {
+        width: 100%;
+        justify-content: center;
+      }
+      .footer-logos {
+        gap: 12px;
+      }
+      .footer-logo img {
+        height: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <!-- Cabeçalho Institucional Compartilhado -->
+  <header>
+    <a href="index.html" class="brand" aria-label="Ir para a página inicial">
+      <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+        <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
+        <polyline points="10 9 9 9 8 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"></polyline>
+      </svg>
+      <span>SEI BAHIA · CAPACITAÇÃO</span>
+    </a>
+
+    <nav aria-label="Navegação Principal">
+      <a href="index.html">INÍCIO</a>
+      <a href="apostila.html">APOSTILA</a>
+      <a href="faq.html">FAQ</a>
+      <a href="forum.html" aria-current="page">FÓRUM</a>
+    </nav>
+
+    <div class="header-actions">
+      <span class="hello">OLÁ, <b>SERVIDOR(A)</b></span>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
+        <svg id="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal do Fórum -->
+  <main class="forum-main" id="forum-principal">
+    
+    <!-- Faixa de Aviso de Demonstração (Topo) -->
+    <aside class="demo-banner" role="status" aria-label="Aviso de protótipo de demonstração">
+      <svg class="demo-banner-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <span>
+        <strong>Protótipo de demonstração.</strong> Os dados ficam salvos apenas neste navegador e não são compartilhados.
+      </span>
+    </aside>
+
+    <!-- Apresentação do Fórum e Seletor de Perfil -->
+    <section class="forum-hero" aria-labelledby="forum-title">
+      <div class="forum-header-top">
+        <div>
+          <div class="badge-tag">Espaço Colaborativo do Servidor</div>
+          <h1 id="forum-title">Fórum de Dúvidas</h1>
+          <p>
+            Tire dúvidas, compartilhe procedimentos de trabalho e consulte orientações práticas validadas para a tramitação de processos no SEI Bahia.
+          </p>
+        </div>
+      </div>
+
+      <!-- Barra de Controle: Perfis Simulados e Reset -->
+      <div class="forum-toolbar" role="region" aria-label="Controles de demonstração e perfis">
+        <div class="profile-controls">
+          <label for="profileSelector" class="profile-label">Simular Perfil:</label>
+          <div class="profile-select-wrap">
+            <select id="profileSelector" class="profile-select" aria-label="Selecione o perfil de usuário para simulação">
+              <option value="visitante">Visitante (Sem login)</option>
+              <option value="usuario">Usuário (Maria Souza · SEC)</option>
+              <option value="moderador">Moderador (João Lima · SAEB)</option>
+            </select>
+            <span class="profile-select-arrow" aria-hidden="true">▼</span>
+          </div>
+
+          <div class="active-profile-badge" id="activeProfileBadge" role="status" aria-live="polite">
+            <!-- Preenchido via js/forum.js -->
+          </div>
+        </div>
+
+        <button type="button" class="btn-reset-data" id="btnResetDados" title="Restaurar as 6 perguntas e respostas originais de demonstração">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+          </svg>
+          <span>Resetar dados de exemplo</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Busca e Filtros -->
+    <section class="search-filter-section" aria-label="Busca e filtros do fórum">
+      <!-- Campo de Busca em Tempo Real -->
+      <div class="search-wrap">
+        <label class="search" for="buscaForum">
+          <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="M21 21l-4.35-4.35"></path>
+          </svg>
+          <input
+            id="buscaForum"
+            type="search"
+            placeholder="Buscar dúvida no fórum (ex.: assinatura, bloco, reabrir, OCR, usuário externo...)"
+            aria-label="Buscar dúvida no fórum"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button type="button" class="clear-btn" id="clearBtnForum" aria-label="Limpar campo de busca" title="Limpar busca">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </label>
+      </div>
+
+      <!-- Grupos de Chips: Categoria e Status -->
+      <div class="filter-groups">
+        <div class="filter-row">
+          <span class="filter-label">Tema:</span>
+          <div class="chips" id="chipsCategorias" role="group" aria-label="Filtrar por categoria temática"></div>
+        </div>
+        <div class="filter-row">
+          <span class="filter-label">Situação:</span>
+          <div class="chips" id="chipsStatus" role="group" aria-label="Filtrar por situação da pergunta"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Linha de Ação: Contagem e Botão Nova Pergunta -->
+    <div class="forum-action-bar">
+      <div class="results-count" id="forumResultsCount" aria-live="polite">Carregando perguntas...</div>
+
+      <!-- Para Visitante: Aviso informativo -->
+      <div class="auth-notice-box" id="authNoticeContainer" style="display: none;" role="status">
+        <!-- Preenchido via js/forum.js -->
+      </div>
+
+      <!-- Para Usuário e Moderador: Botão de Abertura -->
+      <button type="button" class="btn-new-question" id="btnOpenNewQuestion" aria-expanded="false" aria-controls="newQuestionSection">
+        <span aria-hidden="true">＋</span> Nova Pergunta
+      </button>
+    </div>
+
+    <!-- Painel do Formulário de Nova Pergunta (Expandível) -->
+    <section class="new-question-panel" id="newQuestionSection" hidden aria-labelledby="formNewQuestionTitle">
+      <div class="panel-header">
+        <h2 id="formNewQuestionTitle">Fazer uma Nova Pergunta</h2>
+      </div>
+
+      <!-- Aviso Fixo Obrigatório -->
+      <div class="security-notice" role="note">
+        <span class="security-notice-icon" aria-hidden="true">⚠️</span>
+        <div>
+          <strong>Aviso Importante:</strong> Não publique números de processos reais, dados pessoais de cidadãos ou informações sigilosas.
+        </div>
+      </div>
+
+      <form id="formNovaPergunta" novalidate>
+        <div class="form-group">
+          <label for="novoTitulo">Título da pergunta <span class="req" aria-hidden="true">*</span></label>
+          <input
+            type="text"
+            id="novoTitulo"
+            name="titulo"
+            maxlength="120"
+            placeholder="Ex.: Como assinar despacho conjunto em bloco de assinaturas?"
+            required
+            aria-describedby="tituloCharCount"
+          >
+          <div class="char-counter"><span id="tituloCharCount">0</span> / 120 caracteres</div>
+        </div>
+
+        <div class="form-group">
+          <label for="novaCategoria">Categoria <span class="req" aria-hidden="true">*</span></label>
+          <select id="novaCategoria" name="categoria" required>
+            <option value="">Selecione uma categoria...</option>
+            <option value="Acesso">Acesso</option>
+            <option value="Processos">Processos</option>
+            <option value="Documentos">Documentos</option>
+            <option value="Blocos">Blocos</option>
+            <option value="Busca">Busca</option>
+            <option value="Usuários externos">Usuários externos</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="novoTexto">Texto detalhado da dúvida <span class="req" aria-hidden="true">*</span></label>
+          <textarea
+            id="novoTexto"
+            name="texto"
+            rows="5"
+            maxlength="2000"
+            placeholder="Descreva detalhadamente a situação encontrada no SEI, passos realizados e o resultado esperado..."
+            required
+            aria-describedby="textoCharCount"
+          ></textarea>
+          <div class="char-counter"><span id="textoCharCount">0</span> / 2000 caracteres</div>
+        </div>
+
+        <div class="form-error" id="formError" hidden role="alert" aria-live="polite"></div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">Publicar Pergunta</button>
+          <button type="button" class="btn-cancel" id="btnCancelForm">Cancelar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Lista de Cartões de Perguntas -->
+    <section class="questions-list" id="listaPerguntas" role="region" aria-label="Lista de dúvidas no fórum">
+      <!-- Inserido dinamicamente via js/forum.js -->
+    </section>
+
+    <!-- Estado Vazio Amigável -->
+    <div class="empty-state" id="forumEmptyState" hidden role="region" aria-live="polite">
+      <div class="empty-state-icon" aria-hidden="true">🔍</div>
+      <h3>Nenhuma pergunta encontrada</h3>
+      <p>Não localizamos dúvidas correspondentes aos filtros ou ao termo pesquisado. Tente palavras diferentes ou limpe os filtros aplicados.</p>
+      <button type="button" class="btn-reset-search" id="btnResetSearch">
+        Limpar busca e filtros
+      </button>
+    </div>
+
+    <!-- Região Viva para Anúncios em Leitores de Tela -->
+    <div id="feedbackRegion" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;" aria-live="polite"></div>
+  </main>
+
+  <!-- Rodapé Institucional do Cartão -->
+  <footer class="card-footer">
+    <p class="footer-text">Projeto desenvolvido com apoio do edital FAPESB</p>
+    <div class="footer-logos">
+      <div class="footer-logo">
+        <img
+          src="img/logos/fapesb_secti.png"
+          alt="Logo da FAPESB e Governo do Estado da Bahia - Secretaria de Ciência, Tecnologia e Inovação"
+          loading="lazy"
+        >
+      </div>
+      <div class="footer-logo">
+        <img
+          src="img/logos/ifba.png"
+          alt="Logo do Instituto Federal da Bahia - Campus Paulo Afonso"
+          loading="lazy"
+        >
+      </div>
+      <div class="footer-logo">
+        <img
+          src="img/logos/ncti.png"
+          alt="Logo do NCTI - Núcleo de Pesquisa em Ciência, Tecnologia e Inovação"
+          loading="lazy"
+        >
+      </div>
+    </div>
+  </footer>
+
+  <!-- Folhagens Decorativas nos Cantos Inferiores do Cartão -->
+  <div class="foot-foliage" aria-hidden="true">
+    <svg class="foliage-left" viewBox="0 0 240 100">
+      <path d="M0 100 L0 52 C16 40 28 60 42 44 C52 18 72 4 84 32 C90 48 104 34 116 44 C132 58 150 36 168 52 C182 66 202 56 218 72 C228 82 234 94 240 100 Z"></path>
+      <path d="M12 100 C30 50 65 55 90 90 C60 88 40 92 12 100 Z" opacity="0.6"></path>
+    </svg>
+    <svg class="foliage-right" viewBox="0 0 240 100">
+      <path d="M0 100 L0 52 C16 40 28 60 42 44 C52 18 72 4 84 32 C90 48 104 34 116 44 C132 58 150 36 168 52 C182 66 202 56 218 72 C228 82 234 94 240 100 Z"></path>
+      <path d="M12 100 C30 50 65 55 90 90 C60 88 40 92 12 100 Z" opacity="0.6"></path>
+    </svg>
+  </div>
+</div>
+
+<!-- Scripts Separados e Modulares -->
+<script src="js/theme.js"></script>
+<script src="js/api.js"></script>
+<script src="js/forum.js"></script>
+</body>
+</html>
+
